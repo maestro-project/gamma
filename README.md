@@ -10,41 +10,41 @@ conda activate gammaEnv
 ```
 * Install requirement
 ```
-	pip install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 * Download cost model and build symbolic link
 ```
-	python build.py
+python build.py
 ```
 
 
 * If want to try out other optimization methods
 ```
-	pip install nevergrad
+pip install nevergrad
 ```
 
-* Setup larger limitation for opened file if needed (for threading)
+* Setup larger limitation for opened file if there is warning "Too many open files." (for threading).
 ```
-	ulimit -n 4096
+ulimit -n 4096
 ```
 
 ### Run ###
 * Run GAMMA
 ```
-	./run_gamma.sh
+./run_gamma.sh
 ```
 * Run GAMMA with HW configuration file
 ```
-	./run_gamma_with_hwconfig.sh
+./run_gamma_with_hwconfig.sh
 ```
 * Run other optimization methods
 ```
-	./run_others.sh
+./run_others.sh
 ```
 * Run other optimization methods with HW configuration file
 ```
-	./run_others_with_hwconfig.sh
+./run_others_with_hwconfig.sh
 ```
 
 #### Parameter ####
