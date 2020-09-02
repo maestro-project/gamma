@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectInspectionProfilesVisibleTreeState">
+    <entry key="Project Default">
+      <profile-state>
+        <expanded-state>
+          <State />
+          <State>
+            <id>Assignment issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Bitwise operation issuesJavaScript</id>
+          </State>
+          <State>
+            <id>CSS</id>
+          </State>
+          <State>
+            <id>Code quality toolsCSS</id>
+          </State>
+          <State>
+            <id>Code quality toolsJavaScript</id>
+          </State>
+          <State>
+            <id>Control flow issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Data flowJavaScript</id>
+          </State>
+          <State>
+            <id>ECMAScript 6 migration aidsJavaScript</id>
+          </State>
+          <State>
+            <id>Error handlingJavaScript</id>
+          </State>
+          <State>
+            <id>General</id>
+          </State>
+          <State>
+            <id>GeneralJavaScript</id>
+          </State>
+          <State>
+            <id>Internationalization</id>
+          </State>
+          <State>
+            <id>JavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript function metricsJavaScript</id>
+          </State>
+          <State>
+            <id>JavaScript validity issuesJavaScript</id>
+          </State>
+          <State>
+            <id>Potentially confusing code constructsJavaScript</id>
+          </State>
+          <State>
+            <id>Probable bugsJavaScript</id>
+          </State>
+          <State>
+            <id>Pyramid</id>
+          </State>
+          <State>
+            <id>Python</id>
+          </State>
+          <State>
+            <id>RegExp</id>
+          </State>
+          <State>
+            <id>TypeScript</id>
+          </State>
+        </expanded-state>
+      </profile-state>
+    </entry>
+  </component>
+</project>
