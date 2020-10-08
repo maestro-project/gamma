@@ -4,6 +4,8 @@ import argparse
 import other_method_env as Env
 from datetime import datetime
 from multiprocessing import Pool
+from multiprocessing import cpu_count
+
 from functools import partial
 import glob
 import os, sys
@@ -163,7 +165,7 @@ def train_model(model_defs):
     stages=1
     dim_set = set((tuple(m) for m in model_defs))
     threadcount = len(dim_set)
-    pool = Pool(threadcount)
+    pool = Pool(min(threadcount, cpu_count()))
     for i, dim in enumerate(model_defs):
         layerid_to_dim[i] = dim
     for s in range(stages):
@@ -183,30 +185,31 @@ def train_model(model_defs):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument('--fitness1', type=str, default="latency", help='first stage fitness')
-    parser.add_argument('--stages', type=int, default=2, help='number of stages')
-    parser.add_argument('--num_pop', type=int, default=200, help='number of populations')
+    parser.add_argument('--stages', type=int, default=2, help='number of stages', choices=[1,2])
+    parser.add_argument('--num_pop', type=int, default=100, help='number of populations')
     parser.add_argument('--parRS', default=False, action='store_true', help='Parallize across R S dimension')
-    parser.add_argument('--epochs', type=int, default=1, help='number of epochs')
+    parser.add_argument('--epochs', type=int, default=20, help='number of epochs')
     parser.add_argument('--outdir', type=str, default="outdir", help='output directiory')
     parser.add_argument('--num_pe', type=int, default=168, help='number of PEs')
     parser.add_argument('--l1_size', type=int, default=512, help='L1 size')
     parser.add_argument('--l2_size', type=int, default=108000, help='L2 size')
     parser.add_argument('--NocBW', type=int, default=8192000, help='NoC BW')
     parser.add_argument('--hwconfig', type=str, default="hw_config.m", help='HW configuration file')
-    parser.add_argument('--model_def', type=str, default="vgg16", help='Model to run')
-    parser.add_argument('--num_layer', type=int, default=2, help='number of layers to optimize')
+    parser.add_argument('--model', type=str, default="vgg16", help='Model to run')
+    parser.add_argument('--num_layer', type=int, default=0, help='number of layers to optimize')
     parser.add_argument('--singlelayer', type=int, default=1, help='The layer index to optimize')
     parser.add_argument('--slevel', type=int, default=2, help='parallelization level')
     parser.add_argument('--fixedCluster', type=int, default=0, help='Rigid cluster size')
     parser.add_argument('--log_level', type=int, default=1, help='Detail: 2, runtimeinfo: 1')
-    parser.add_argument('--method', type=str, default="DE", help='["PSO", "Portfolio", "OnePlusOne","CMA", "DE","TBPSA","pureGA","Random","GA"]')
+    parser.add_argument('--method', type=str, default="DE", help='["PSO", "Portfolio", "OnePlusOne","CMA", "DE","TBPSA","pureGA","Random"]',
+                        choices=["PSO", "Portfolio", "OnePlusOne","CMA", "DE","TBPSA","pureGA","Random"])
 
     opt = parser.parse_args()
     opt = set_hw_config(opt)
-    m_file_path = "../../data/modelfile/"
+    m_file_path = "../../data/model/"
     method = get_method(opt)
-    m_file = os.path.join(m_file_path, opt.model_def + "_m.csv")
-    df = pd.read_csv(m_file, header=None)
+    m_file = os.path.join(m_file_path, opt.model + ".csv")
+    df = pd.read_csv(m_file)
     model_defs = df.to_numpy()
     if opt.singlelayer:
         model_defs = model_defs[opt.singlelayer - 1:opt.singlelayer]
@@ -221,9 +224,9 @@ if __name__ == "__main__":
     outdir = os.path.join("../../", outdir)
     choose_optimizer = method
     if opt.fixedCluster>0:
-        exp_name = "{}_{}_SL-{}-{}_FixCl-{}_F1-{}_PE-{}_GEN-{}_POP-{}_L1-{}_L2-{}".format(method, opt.model_def,opt.slevel,opt.slevel,opt.fixedCluster, opt.fitness1, opt.num_pe, opt.epochs, opt.num_pop, opt.l1_size, opt.l2_size)
+        exp_name = "{}_{}_SL-{}-{}_FixCl-{}_F1-{}_PE-{}_GEN-{}_POP-{}_L1-{}_L2-{}".format(method, opt.model,opt.slevel,opt.slevel,opt.fixedCluster, opt.fitness1, opt.num_pe, opt.epochs, opt.num_pop, opt.l1_size, opt.l2_size)
     else:
-        exp_name = "{}_{}_SL-{}-{}_F1-{}_PE-{}_GEN-{}_POP-{}_L1-{}_L2-{}".format(method, opt.model_def,opt.slevel,opt.slevel,opt.fitness1, opt.num_pe, opt.epochs, opt.num_pop, opt.l1_size, opt.l2_size)
+        exp_name = "{}_{}_SL-{}-{}_F1-{}_PE-{}_GEN-{}_POP-{}_L1-{}_L2-{}".format(method, opt.model,opt.slevel,opt.slevel,opt.fitness1, opt.num_pe, opt.epochs, opt.num_pop, opt.l1_size, opt.l2_size)
 
     search_level = opt.slevel
 

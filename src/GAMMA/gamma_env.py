@@ -5,7 +5,7 @@ import os
 from subprocess import Popen, PIPE
 import pandas as pd
 from multiprocessing.pool import Pool
-
+from multiprocessing import cpu_count
 m_type_dicts = {0:"CONV", 1:"CONV", 2:"DSCONV", 3:"CONV"}
 class GAMMA(object):
     def __init__(self,dimension, num_pe=64, fitness="latency",par_RS=False, l1_size=512, l2_size=108000, NocBW=81920000, slevel_min=2,slevel_max=2, fixedCluster=0, log_level=2):
@@ -33,6 +33,13 @@ class GAMMA(object):
         self.fitness = fitness
     def create_genome(self, uni_base=False,last_cluster_dict=None):
         K,C,Y,X,R,S,T = [1]*len(self.dimension)  if uni_base else self.dimension
+        if last_cluster_dict:
+            K = last_cluster_dict["K"]
+            C = last_cluster_dict["C"]
+            Y = last_cluster_dict["Y"]
+            X = last_cluster_dict["X"]
+            R = last_cluster_dict["R"]
+            S = last_cluster_dict["S"]
         sp = random.choice(self.cluster_space)
         lastcluster_sz = last_cluster_dict[sp] if last_cluster_dict else self.dimension_dict[sp]
         if uni_base == True and self.fixedCluster > 0:
@@ -78,14 +85,21 @@ class GAMMA(object):
                 if random.random() < alpha:
                     pick = random.randint(0, len(indv) - 1)
                     if pick % 7 == 0:
-                        last_cluster_dict = self.scan_indv(indv) if pick != 0 else None
                         sp = random.choice(self.cluster_space)
-                        lastcluster_sz = last_cluster_dict[sp] if last_cluster_dict else self.dimension_dict[sp]
-                        sp_sz = min(lastcluster_sz, self.num_pe) if self.fixedCluster <1 else self.fixedCluster
+                        if self.fixedCluster < 1:
+                            last_cluster_dict = self.scan_indv(indv[:-7]) if pick != 0 else None
+                            lastcluster_sz = last_cluster_dict[sp] if last_cluster_dict else self.dimension_dict[sp]
+                            sp_sz = min(lastcluster_sz, self.num_pe)
+                        else:
+                            sp_sz = self.fixedCluster
                         pop[idx][pick] = [sp, sp_sz]
                     else:
                         d, d_sz = indv[pick]
-                        thr = self.dimension_dict[d]
+                        if pick > 7:
+                            last_cluster_dict = self.scan_indv(indv[:-7])
+                            thr = last_cluster_dict[d]
+                        else:
+                            thr = self.dimension_dict[d]
                         if is_finetune:
                             sampling = np.random.uniform(-range_alpha, range_alpha, 1)
                             sampling = int(sampling * thr)
@@ -205,10 +219,9 @@ class GAMMA(object):
         num_generations = num_generations
         num_population = num_population
         num_elite = int(num_population * elite_ratio)
-        pool = Pool(num_population+ num_elite)
-
+        pool = Pool(min(num_population + num_elite, cpu_count()))
         best_reward_list = []
-        best_reward = [-float("Inf") for _ in range(stage_idx + 1)]
+        best_reward = [-float("Inf") for _ in range( len(self.fitness))]
         best_sol = None
         population = [self.create_genome_fixedSL() for _ in range(num_population)] if (
                     (stage_idx == 0) or (best_sol_1st is None)) else [best_sol_1st for _ in range(num_population)]
@@ -225,7 +238,7 @@ class GAMMA(object):
                     population = [self.create_genome_fixedSL() for _ in range(num_population)] if (
                                 (stage_idx == 0) or (best_sol_1st is None)) else [best_sol_1st for _ in
                                                                                   range(num_population)]
-                    fitness = np.ones((num_population, stage_idx + 1), float)
+                    fitness = np.ones((num_population,  len(self.fitness)), float)
                     print("Reinitialize population")
                     num_parents = num_population
                 population, fitness, parents = self.select_parents(population, fitness, num_parents, num_population,
@@ -288,6 +301,7 @@ class GAMMA(object):
                         print( "[Stage {}]Gen {}: Best reward: {}".format( stage_idx + 1, (g + 1), np.abs(best_reward)[0]))
                     else:
                         print( "[Stage {}]Gen {}:  1st stage Reward: {}, Best reward: {}".format(stage_idx + 1, (g + 1), np.abs(prev_stage_value), np.abs(best_reward)))
+        pool.close()
         return chkpt
 
     def thread_fun(self, individual):
@@ -313,7 +327,8 @@ class GAMMA(object):
                             fo.write("Cluster({},P);\n".format(d_sz))
                     else:
                         sp = "SpatialMap" if d == indv[k][0] else "TemporalMap"
-                        fo.write("{}({},{}) {};\n".format(sp, d_sz, d_sz, self.get_out_repr(d)))
+                        if not (m_type =="DSCONV" and self.get_out_repr(d) =="K"):
+                            fo.write("{}({},{}) {};\n".format(sp, d_sz, d_sz, self.get_out_repr(d)))
             fo.write("}\n")
             fo.write("}\n")
             fo.write("}")
@@ -351,7 +366,14 @@ class GAMMA(object):
             os.remove("./{}.csv".format(m_file))  if os.path.exists("./{}.csv".format(m_file)) else None
             os.remove("./log.txt") if os.path.exists("./log.txt") else None
             self.observation = [np.mean(x) for x in [runtime, throughput, energy, area, l1_size, l2_size, mac, power]]
-            if len(str(stdout))>3:
+            def catch_exception():
+                if l1_size>self.l1_size or l2_size>self.l2_size or runtime<1 or l1_size<0 or l2_size<0:
+                    return True
+                else:
+                    return False
+
+
+            if len(str(stdout))>3 or catch_exception():
                 return None
             return self.judge()
         except:

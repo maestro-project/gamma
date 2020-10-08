@@ -123,6 +123,6 @@ def print_result(file):
             plt.xlabel('Generation #', fontdict=font)
             plt.legend()
             plt.savefig(img_file + ".png", dpi=300)
-            # plt.show()
+            plt.show()
             plt.close(fig)
 

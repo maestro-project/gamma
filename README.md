@@ -24,7 +24,7 @@ python build.py
 pip install nevergrad
 ```
 
-* Setup larger limitation for opened file if there is warning "Too many open files." (for threading).
+* Setup larger limitation for opened file if there is warning "Too many open files." (for threading)
 ```
 ulimit -n 4096
 ```
@@ -50,16 +50,17 @@ ulimit -n 4096
 #### Parameter ####
 * fitness1: The first fitness objective (latency/ power/ energy)
 * fitness2: The second fitness objective (latency/ power/ energy)
-* stages: Number of stages
+* stages: Number of stages, can choose from [1 or 2]
+    * Choose 1, the system will only optimize on fitness1
+    * Choose 2, the system will optimize on fitness1 and then fitness2 
 * num_pe: Number of PEs
 * l1_size: SL size (Bytes)
 * l2_size: SG size (Bytes)
 * slevel_min: The minimum number of parallelism
 * slevel_max: The maximum number of parallelism
 * epochs: Number of generation for the optimization
-* model_def: The model to run (available model in model_dir)
-* num_layers: The number of layers to optimized in the selected models (type -1, if want to optimize all)
-* singlelayer: The layer index of the selected model, if want to optimize only single layer (type -1, if want to optimize mulitple layers by num_layers)
+* model: The model to run (available model in model_dir)
+* singlelayer: The layer index of the selected model, if want to optimize only single layer. If want to optimize all layers, skip this specification.
 * outdir: The output result directory
 * method: The optimization methods to choose from (PSO/ Portfolio/ OnePlusOne/ CMA/ DE/ TBPSA/ pureGA/ Random/ GA)
 
