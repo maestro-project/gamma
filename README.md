@@ -54,15 +54,16 @@ ulimit -n 4096
     * Choose 1, the system will only optimize on fitness1
     * Choose 2, the system will optimize on fitness1 and then fitness2 
 * num_pe: Number of PEs
-* l1_size: SL size (Bytes)
-* l2_size: SG size (Bytes)
+* l1_size: L1 size (Bytes)
+* l2_size: L2 size (Bytes)
 * slevel_min: The minimum number of parallelism
-* slevel_max: The maximum number of parallelism
+* slevel_max: The maximum number of parallelism. The number of parallelism will be in the range [slevel_min, slevel_max]
 * epochs: Number of generation for the optimization
 * model: The model to run (available model in model_dir)
 * singlelayer: The layer index of the selected model, if want to optimize only single layer. If want to optimize all layers, skip this specification.
 * outdir: The output result directory
 * method: The optimization methods to choose from (PSO/ Portfolio/ OnePlusOne/ CMA/ DE/ TBPSA/ pureGA/ Random/ GA)
+* hwconfig: Read in HW configuration from file
 
 ##### To find out all the options
 ```
