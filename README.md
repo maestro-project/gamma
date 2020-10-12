@@ -18,12 +18,6 @@ pip install -r requirements.txt
 python build.py
 ```
 
-
-* If want to try out other optimization methods
-```
-pip install nevergrad
-```
-
 * Setup larger limitation for opened file if there is warning "Too many open files." (for threading)
 ```
 ulimit -n 4096
