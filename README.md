@@ -7,7 +7,7 @@
 ```
 git clone https://github.com/maestro-project/gamma.git
 ```
-* Create virtural env
+* Create virtual env
 ```
 conda create --name gammaEnv python=3.6
 conda activate gammaEnv
