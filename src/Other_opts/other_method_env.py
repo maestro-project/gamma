@@ -107,7 +107,7 @@ class MaestroEnvironment(object):
         # print(num_pe, bw, l1_size)
         os.remove("./{}.csv".format(m_file)) if os.path.exists("./{}.csv".format(m_file)) else None
         command = [self._executable,
-                   "--DFSL_file={}.m".format(m_file),
+                   "--Mapping_file={}.m".format(m_file),
                    "--full_buffer=false", "--noc_bw={}".format(self.NocBW),
                    "--noc_hops=1", "--noc_hop_latency=1",
                    "--noc_mc_support=true", "--num_pes={}".format(self.num_pe),
