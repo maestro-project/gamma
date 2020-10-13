@@ -3,6 +3,10 @@
 
 
 ### Setup ###
+* Clone Repo
+```
+git clone https://github.com/maestro-project/gamma.git
+```
 * Create virtural env
 ```
 conda create --name gammaEnv python=3.6
