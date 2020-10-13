@@ -131,4 +131,4 @@ dmypy.json
 # others
 *.plt
 .idea/
-cost_model/
+cost_model/*
