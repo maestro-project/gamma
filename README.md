@@ -1,5 +1,11 @@
 # GAMMA #
+This is the implementation of the paper [GAMMA: Automating the HW Mapping of DNN Models on
+Accelerators via Genetic Algorithm](https://cpb-us-w2.wpmucdn.com/sites.gatech.edu/dist/c/332/files/2020/08/gamma_iccad2020.pdf). 
+GAMMA is an autonomous framework for optimizing the HW mapping of DNN models on the DNN Accelerators. This repository includes GAMMA, 
+a specialized GA-based algorithm, a HW cost evaluation environment with a HW cost model, [MAESTRO](http://maestro.ece.gatech.edu/), embedded, 
+and the other conventional optimization methods supported by [nevergrad](https://github.com/facebookresearch/nevergrad).
 
+![GAMMA Framework](./others/gamma.jpg)
 
 
 ### Setup ###
