@@ -76,7 +76,7 @@ python main.py --help
 ### Resources
 * Tutorial of GAMMA, in IEEE/ACM International Symposium on Microarchitecture (MICRO), 2020 [[video](https://www.youtube.com/watch?v=gfBFRBbcA10)]
 * Main paper presentation, in IEEE/ACM International Conference On Computer Aided Design (ICCAD), 2020 [[video](https://www.youtube.com/watch?v=Q7oJBJmVbGw)] 
-
+* Main paper: GAMMA: Automating the HW Mapping of DNN Models on Accelerators via Genetic Algorithm, ICCAD, 2020 [[paper]https://cpb-us-w2.wpmucdn.com/sites.gatech.edu/dist/c/332/files/2020/08/gamma_iccad2020.pdf)]
 
 ### Contributor ###
 * Sheng-Chun (Felix) Kao
