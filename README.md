@@ -73,8 +73,10 @@ ulimit -n 4096
 ```
 python main.py --help
 ```
-#### Note ####
-* Support stable maestro version: commit id: f1df103
+### Resources
+* Tutorial of GAMMA, in IEEE/ACM International Symposium on Microarchitecture (MICRO), 2020 [[video](https://www.youtube.com/watch?v=gfBFRBbcA10)]
+* Main paper presentation, in IEEE/ACM International Conference On Computer Aided Design (ICCAD), 2020 [[video](https://www.youtube.com/watch?v=Q7oJBJmVbGw)] 
+
 
 ### Contributor ###
 * Sheng-Chun (Felix) Kao
