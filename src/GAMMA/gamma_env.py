@@ -341,11 +341,11 @@ class GAMMA(object):
         os.remove("./{}.csv".format(m_file)) if os.path.exists("./{}.csv".format(m_file)) else None
         command = [self._executable,
                    "--Mapping_file={}.m".format(m_file),
-                   "--full_buffer=false", "--noc_bw={}".format(self.NocBW),
+                   "--full_buffer=false", "--noc_bw_cstr={}".format(self.NocBW),
                    "--noc_hops=1", "--noc_hop_latency=1",
                    "--noc_mc_support=true", "--num_pes={}".format(self.num_pe),
-                   "--num_simd_lanes=1", "--l1_size={}".format(self.l1_size),
-                   "--l2_size={}".format(self.l2_size), "--print_res=false", "--print_res_csv_file=true", "--print_log_file=false", "--print_design_space=false", "--msg_print_lv=0"]
+                   "--num_simd_lanes=1", "--l1_size_cstr={}".format(self.l1_size),
+                   "--l2_size_cstr={}".format(self.l2_size), "--print_res=false", "--print_res_csv_file=true", "--print_log_file=false", "--print_design_space=false", "--msg_print_lv=0"]
 
 
         process = Popen(command, stdout=PIPE, stderr=PIPE)
@@ -360,8 +360,8 @@ class GAMMA(object):
             energy = np.array(df[" Activity count-based Energy (nJ)"]).reshape(-1, 1)
             area = np.array(df[" Area"]).reshape(-1, 1)
             power = np.array(df[" Power"]).reshape(-1, 1)
-            l1_size = np.array(df[" L1 SRAM Size (Bytes)"]).reshape(-1, 1)
-            l2_size = np.array(df["  L2 SRAM Size (Bytes)"]).reshape(-1, 1)
+            l1_size = np.array(df[" L1 SRAM Size Req (Bytes)"]).reshape(-1, 1)
+            l2_size = np.array(df["  L2 SRAM Size Req (Bytes)"]).reshape(-1, 1)
             mac = np.array(df[" Num MACs"]).reshape(-1, 1)
             os.remove("./{}.csv".format(m_file))  if os.path.exists("./{}.csv".format(m_file)) else None
             os.remove("./log.txt") if os.path.exists("./log.txt") else None
@@ -373,7 +373,7 @@ class GAMMA(object):
                     return False
 
 
-            if len(str(stdout))>3 or catch_exception():
+            if  catch_exception():
                 return None
             return self.judge()
         except:
