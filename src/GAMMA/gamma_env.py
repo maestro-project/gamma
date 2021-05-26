@@ -32,7 +32,9 @@ class GAMMA(object):
         self.dimension = dimension
         self.fitness = fitness
     def create_genome(self, uni_base=False,last_cluster_dict=None):
-        K,C,Y,X,R,S,T = [1]*len(self.dimension)  if uni_base else self.dimension
+        K,C,Y,X,R,S,T = self.dimension
+        if uni_base:
+            K,C,Y,X = 1, 1, 1, 1
         if last_cluster_dict:
             K = last_cluster_dict["K"]
             C = last_cluster_dict["C"]
@@ -46,7 +48,7 @@ class GAMMA(object):
             sp_sz = self.fixedCluster
         else:
             sp_sz = min(lastcluster_sz, self.num_pe)
-        df = [["K", random.randint(1, K)], ["C", random.randint(1, C)], ["Y", random.randint(1, Y)],["X", random.randint(1, X)], ["R", random.randint(1, R)], ["S", random.randint(1, S)]]
+        df = [["K", random.randint(1, K)], ["C", random.randint(1, C)], ["Y", random.randint(1, Y)],["X", random.randint(1, X)], ["R", R], ["S", S]]
         idx = np.random.permutation(len(df))
         return [[sp, sp_sz]] + [df[i] for i in idx]
 
@@ -95,19 +97,22 @@ class GAMMA(object):
                         pop[idx][pick] = [sp, sp_sz]
                     else:
                         d, d_sz = indv[pick]
-                        if pick > 7:
-                            last_cluster_dict = self.scan_indv(indv[:-7])
-                            thr = last_cluster_dict[d]
+                        if d == "R" or d=="S":
+                            pass
                         else:
-                            thr = self.dimension_dict[d]
-                        if is_finetune:
-                            sampling = np.random.uniform(-range_alpha, range_alpha, 1)
-                            sampling = int(sampling * thr)
-                            new_d_sz = d_sz + sampling
-                            new_d_sz = max(1, min(new_d_sz, self.dimension_dict[d]))
-                        else:
-                            new_d_sz = random.randint(1, thr)
-                        pop[idx][pick][1] = new_d_sz
+                            if pick > 7:
+                                last_cluster_dict = self.scan_indv(indv[:-7])
+                                thr = last_cluster_dict[d]
+                            else:
+                                thr = self.dimension_dict[d]
+                            if is_finetune:
+                                sampling = np.random.uniform(-range_alpha, range_alpha, 1)
+                                sampling = int(sampling * thr)
+                                new_d_sz = d_sz + sampling
+                                new_d_sz = max(1, min(new_d_sz, self.dimension_dict[d]))
+                            else:
+                                new_d_sz = random.randint(1, thr)
+                            pop[idx][pick][1] = new_d_sz
 
     def swap_order(self, pop, alpha=0.5):
         max_count = len(pop)
@@ -155,7 +160,7 @@ class GAMMA(object):
                 length = min(len(dad), len(mom))
                 for k in range(0, length, 7):
                     if random.random() < alpha:
-                        cross_point = random.choice(["K", "C", "Y", "X", "R", "S"])
+                        cross_point = random.choice(["K", "C", "Y", "X"])
                         for i in range(k+1, k+7):
                             d, d_sz = dad[i]
                             if d== cross_point:

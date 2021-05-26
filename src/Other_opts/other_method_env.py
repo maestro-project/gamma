@@ -30,6 +30,13 @@ class MaestroEnvironment(object):
         self.l2_size = l2_size
         self.NocBW = NocBW
 
+    def fixed_R_S_encoding(self, tile_dict, d):
+        R, S = self.dimension[4], self.dimension[5]
+        if d == "R":
+            tile_dict[d] = R
+        if d == "S":
+            tile_dict[d] = S
+
     def encode(self, proposal, sp2_sz=None):
         answer = []
         sp = ST_dicts[proposal[0]]
@@ -39,6 +46,8 @@ class MaestroEnvironment(object):
         space = ["K","C", "Y","X","R","S"]
         for i in range(6):
             tile_dict[space[i]] = proposal[i+2]
+            self.fixed_R_S_encoding(tile_dict, space[i])
+
         df = []
         for t in order:
             df.append([t, tile_dict[t]])
@@ -56,6 +65,7 @@ class MaestroEnvironment(object):
             space = ["K", "C", "Y", "X", "R", "S"]
             for i in range(6):
                 tile_dict[space[i]] = proposal[i + 2 + 8]
+                self.fixed_R_S_encoding(tile_dict, space[i])
             df = []
             for t in order:
                 df.append([t, tile_dict[t]])
@@ -70,6 +80,7 @@ class MaestroEnvironment(object):
             space = ["K", "C", "Y", "X", "R", "S"]
             for i in range(6):
                 tile_dict[space[i]] = proposal[i + 2 + 16]
+                self.fixed_R_S_encoding(tile_dict, space[i])
             df = []
             for t in order:
                 df.append([t, tile_dict[t]])
