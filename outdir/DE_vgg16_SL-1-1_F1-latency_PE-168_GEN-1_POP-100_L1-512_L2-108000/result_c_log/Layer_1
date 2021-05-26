@@ -1,6 +1,0 @@
-Layer id: 1
-Layer: [ 64   3 224 224   3   3   1]
-
-Num generation: 1, Num population: 100
-Best  fitness :9.223372e+18Best Sol:
-[['X', 1], ['C', 2], ['X', 23], ['S', 1], ['Y', 155], ['K', 25], ['R', 1]]
