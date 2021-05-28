@@ -30,13 +30,16 @@ class MaestroEnvironment(object):
         self.l2_size = l2_size
         self.NocBW = NocBW
 
-    def fixed_R_S_encoding(self, tile_dict, d):
-        R, S = self.dimension[4], self.dimension[5]
+    def apply_output_centric_RS_constraint(self, tile_dict, d):
+        K, C, Y, X, R, S = self.dimension[:6]
         if d == "R":
             tile_dict[d] = R
         if d == "S":
             tile_dict[d] = S
-
+        if d == "X":
+            tile_dict[d] = min(tile_dict[d], X-S+1)
+        if d == "Y":
+            tile_dict[d] = min(tile_dict[d], Y-R+1)
     def encode(self, proposal, sp2_sz=None):
         answer = []
         sp = ST_dicts[proposal[0]]
@@ -46,7 +49,7 @@ class MaestroEnvironment(object):
         space = ["K","C", "Y","X","R","S"]
         for i in range(6):
             tile_dict[space[i]] = proposal[i+2]
-            self.fixed_R_S_encoding(tile_dict, space[i])
+            self.apply_output_centric_RS_constraint(tile_dict, space[i])
 
         df = []
         for t in order:
@@ -65,7 +68,7 @@ class MaestroEnvironment(object):
             space = ["K", "C", "Y", "X", "R", "S"]
             for i in range(6):
                 tile_dict[space[i]] = proposal[i + 2 + 8]
-                self.fixed_R_S_encoding(tile_dict, space[i])
+                self.apply_output_centric_RS_constraint(tile_dict, space[i])
             df = []
             for t in order:
                 df.append([t, tile_dict[t]])
@@ -80,7 +83,7 @@ class MaestroEnvironment(object):
             space = ["K", "C", "Y", "X", "R", "S"]
             for i in range(6):
                 tile_dict[space[i]] = proposal[i + 2 + 16]
-                self.fixed_R_S_encoding(tile_dict, space[i])
+                self.apply_output_centric_RS_constraint(tile_dict, space[i])
             df = []
             for t in order:
                 df.append([t, tile_dict[t]])

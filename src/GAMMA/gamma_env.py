@@ -33,6 +33,8 @@ class GAMMA(object):
         self.fitness = fitness
     def create_genome(self, uni_base=False,last_cluster_dict=None):
         K,C,Y,X,R,S,T = self.dimension
+        Y = Y - R + 1
+        X = X - S + 1
         if uni_base:
             K,C,Y,X = 1, 1, 1, 1
         if last_cluster_dict:
@@ -105,6 +107,10 @@ class GAMMA(object):
                                 thr = last_cluster_dict[d]
                             else:
                                 thr = self.dimension_dict[d]
+                                if d == "Y":
+                                    thr = thr - self.dimension[4] + 1
+                                if d == "X":
+                                    thr = thr - self.dimension[5] + 1
                             if is_finetune:
                                 sampling = np.random.uniform(-range_alpha, range_alpha, 1)
                                 sampling = int(sampling * thr)
