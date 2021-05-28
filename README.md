@@ -85,9 +85,13 @@ python main.py --help
 ### Citation ###
 ```
 @inproceedings{gamma,
-    author       = {Kao, Sheng-Chun and Krishna, Tushar},
-    title        = {{GAMMA: Automating the HW Mapping of DNN Models on Accelerators via Genetic Algorithm}},
-    booktitle     = {ICCAD},
-  year          = {2020}
+  author    = {Sheng{-}Chun Kao and
+               Tushar Krishna},
+  title     = {{GAMMA:} Automating the {HW} Mapping of {DNN} Models on Accelerators
+               via Genetic Algorithm},
+  booktitle = {{IEEE/ACM} International Conference On Computer Aided Design, {ICCAD}},
+  pages     = {44:1--44:9},
+  publisher = {{IEEE}},
+  year      = {2020},
 }
 ```
