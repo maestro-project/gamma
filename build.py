@@ -12,13 +12,13 @@ if os.path.exists(maestro_dir) is False:
     try:
         os.system("scons")
     except:
-        "Something wring when building maestro, please check maestro repository installation step"
+        "Something went wrong when building maestro, please check maestro repository installation step"
 if os.path.exists(maestro) is False:
     os.chdir(maestro_dir)
     try:
         os.system("scons")
     except:
-        "Something wring when building maestro, please check maestro repository installation step"
+        "Something went wrong when building maestro, please check maestro repository installation step"
 os.chdir(working_path)
 if os.path.exists(dst_path) is False:
     os.symlink(maestro, dst_path)
