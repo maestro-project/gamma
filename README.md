@@ -17,6 +17,7 @@ git clone https://github.com/maestro-project/gamma.git
 ```
 conda create --name gammaEnv python=3.6
 conda activate gammaEnv
+conda install -c anaconda boost
 ```
 * Install requirement
 ```
