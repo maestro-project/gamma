@@ -1,4 +1,4 @@
-# Gamma-Timeloop v.s. Timeloop's search algorithm
+# Gamma-Timeloop v.s. Timeloop's native search algorithm
 We provide an example script to execute experiments for contrasting the quality of the found solution by Gamma-Timeloop and Timeloop's native search algorithm.
 ```
 sh run_exp.sh
