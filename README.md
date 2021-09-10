@@ -7,7 +7,11 @@ and the other conventional optimization methods supported by [nevergrad](https:/
 
 ![GAMMA Framework](./others/gamma.jpg)
 
-
+---
+### Update ###
+Sep 21. 2021: We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](./gamma_timeloop_src).
+It enables using GAMMA algorithm to search through the design space of Timeloop, a DNN cost model from NVIDIA.
+---
 ### Setup ###
 * Clone Repo
 ```
@@ -32,7 +36,7 @@ python build.py
 ```
 ulimit -n 4096
 ```
-
+---
 ### Run ###
 * Run GAMMA
 ```
@@ -50,7 +54,7 @@ ulimit -n 4096
 ```
 ./run_others_with_hwconfig.sh
 ```
-
+---
 #### Parameter ####
 * fitness1: The first fitness objective (latency/ power/ energy)
 * fitness2: The second fitness objective (latency/ power/ energy)
@@ -73,6 +77,7 @@ ulimit -n 4096
 ```
 python main.py --help
 ```
+---
 ### Resources
 * Tutorial of GAMMA, in IEEE/ACM International Symposium on Microarchitecture (MICRO), 2020 [[video](https://www.youtube.com/watch?v=gfBFRBbcA10)]
 * Main paper presentation, in IEEE/ACM International Conference On Computer Aided Design (ICCAD), 2020 [[video](https://www.youtube.com/watch?v=Q7oJBJmVbGw)] 
