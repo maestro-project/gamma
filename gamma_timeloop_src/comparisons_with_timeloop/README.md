@@ -15,6 +15,6 @@ In this experiment,
   * Timeloop-large has sampling budget of 100,000 points. It represents a potential solution if using more exhaustively searched strategy.
 
 
-##### The example comparison results of this experiment:
+#### The example comparison results of this experiment:
 ![Comparisons](./example_output_summary/gamma_timeloop_comparisons_table.jpg)
-* Gamma means Gamma-Timeloop
+*Gamma means Gamma-Timeloop
