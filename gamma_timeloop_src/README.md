@@ -72,7 +72,7 @@ python main.py --help
 
 ##### An example of output messages when executing GAMMA-Timeloop
 ```
-more src/example_outputs/example.txt
+more example_outputs/example.txt
 ```
 ---
 ### Gamma-Timeloop v.s. Timeloop's native search algorithm
