@@ -8,8 +8,8 @@ and the other conventional optimization methods supported by [nevergrad](https:/
 ![GAMMA Framework](./others/gamma.jpg)
 
 ---
-### Update ###
-Sep 21. 2021: We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](./gamma_timeloop_src).
+### Update
+* Sep 21. 2021: We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](./gamma_timeloop_src).
 It enables using GAMMA algorithm to search through the design space of Timeloop, a DNN cost model from NVIDIA.
 ---
 ### Setup ###
@@ -54,7 +54,7 @@ ulimit -n 4096
 ```
 ./run_others_with_hwconfig.sh
 ```
----
+
 #### Parameter ####
 * fitness1: The first fitness objective (latency/ power/ energy)
 * fitness2: The second fitness objective (latency/ power/ energy)
