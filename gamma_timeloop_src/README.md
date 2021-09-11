@@ -57,7 +57,8 @@ Run GAMMA-Timeloop
 ```
 
 #### Parameter ####
-* fitness: The fitness objective 
+* fitness1: The first-ordered fitness objective
+* fitness2: The second-ordered fitness objective 
 * model: The model to run (available model in data/model)
 * layer_idx: The selected layer to run in the selected model. If want to optimize all layers, set layer_idx=-1.
 * num_pes: Number of PEs
