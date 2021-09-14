@@ -10,7 +10,7 @@ and the other conventional optimization methods supported by [nevergrad](https:/
 
 
 ### Gamma-Maestro
-* The native GAMMA algorithm utilizes MAESTRO as cost model, can be found in [gamma_maestro_src directory](./gamma_maestro_src).
+* The native GAMMA algorithm utilizes MAESTRO as cost model, now named [Gamma-Maestro](./gamma_maestro_src), can be found in [./gamma_maestro_src](./gamma_maestro_src) directory. It searches through the design space of MAESTRO and proposes an optimized mapping.
   
 
 ### Gamma-Timeloop
