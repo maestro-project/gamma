@@ -5,15 +5,7 @@ Gamma-Maestro uses [MAESTRO](http://maestro.ece.gatech.edu/) as DNN cost model a
 
 ### Setup ###
 
-* Create virtual env
-```
-conda create --name gammaEnv python=3.6
-conda activate gammaEnv
-```
-* Install requirement
-```
-pip install -r requirements.txt
-```
+
 
 * Download cost model and build symbolic link
 ```
