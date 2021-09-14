@@ -4,10 +4,7 @@ Gamma-Maestro uses [MAESTRO](http://maestro.ece.gatech.edu/) as DNN cost model a
 ---
 
 ### Setup ###
-* Clone Repo
-```
-git clone https://github.com/maestro-project/gamma.git
-```
+
 * Create virtual env
 ```
 conda create --name gammaEnv python=3.6
