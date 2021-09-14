@@ -17,7 +17,18 @@ and the other conventional optimization methods supported by [nevergrad](https:/
 * We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](./gamma_timeloop_src).
   It enables using GAMMA algorithm to search through the design space of Timeloop, a DNN cost model from NVIDIA.
 
-
+---
+### Set-up
+* Create virtual env
+```
+conda create --name gammaEnv python=3.6
+conda activate gammaEnv
+```
+* Install requirement
+```
+pip install -r requirements.txt
+```
+---
 ### Resources
 * Tutorial of GAMMA, in IEEE/ACM International Symposium on Microarchitecture (MICRO), 2020 [[video](https://www.youtube.com/watch?v=gfBFRBbcA10)]
 * Main paper presentation, in IEEE/ACM International Conference On Computer Aided Design (ICCAD), 2020 [[video](https://www.youtube.com/watch?v=Q7oJBJmVbGw)] 
