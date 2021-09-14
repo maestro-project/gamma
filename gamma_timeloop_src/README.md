@@ -19,8 +19,9 @@ libtinfo-dev
 libgpm-dev
 ```
 
-Clone the timeloop repository.
+Clone the timeloop repository in the cost_model directory.
 ```
+cd ../cost_model
 git clone ssh://path/to/timeloop.git
 ```
 
@@ -45,9 +46,9 @@ scons --accelergy
 
 Setup path for Timeloop
 ```
-source [path to timeloop]/timeloop/env/setup-env.bash
-export PATH="$PATH:[path to timeloop]/timeloop/build"
-export LIBTIMELOOP_PATH="[path to timeloop]/timeloop"
+source [path to gamma]/cost_model/timeloop/env/setup-env.bash
+export PATH="$PATH:[path to gamma]/cost_model/timeloop/build"
+export LIBTIMELOOP_PATH="[path to gamma]/cost_model/timeloop"
 ```
 ---
 ### Run ###
