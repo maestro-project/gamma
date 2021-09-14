@@ -1,7 +1,7 @@
 # Gamma-Maestro #
 Gamma-Maestro uses [MAESTRO](http://maestro.ece.gatech.edu/) as DNN cost model and searches through the design space of MAESTRO.
 
-
+---
 
 ### Setup ###
 * Clone Repo
