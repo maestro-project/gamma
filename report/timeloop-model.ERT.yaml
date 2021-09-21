@@ -1,7 +1,7 @@
 ERT:
   version: 0.3
   tables:
-  - name: System.Chip.PEarrray.RegisterFile[0..64]
+  - name: System.Chip.PEarrray.RegisterFile[0..256]
     actions:
     - name: read
       arguments:
@@ -46,7 +46,7 @@ ERT:
     - name: idle
       arguments: null
       energy: 0
-  - name: System.Chip.PEarrray.MACC[0..64]
+  - name: System.Chip.PEarrray.MACC[0..256]
     actions:
     - name: mac_random
       arguments: null

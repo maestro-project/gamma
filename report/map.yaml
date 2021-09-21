@@ -1,17 +1,17 @@
 mapping:
-- factors: N=1 M=1 C=32 Q=1 P=56 S=1 R=1
-  permutation: NSCQPMR
+- factors: N=1 M=64 C=32 Q=56 P=56 S=3 R=3
+  permutation: NMCQPSR
   target: MainMemory
   type: temporal
-- factors: N=1 M=1 C=1 Q=4 P=1 S=3 R=3
+- factors: N=1 M=1 C=1 Q=1 P=1 S=1 R=1
   permutation: NMCQPSR
   target: GlobalBuffer
   type: temporal
-- factors: N=1 M=64 C=1 Q=1 P=1 S=1 R=1
+- factors: N=1 M=1 C=1 Q=1 P=1 S=1 R=1
   permutation: NMCQPSR
   target: GlobalBuffer
   type: spatial
-- factors: N=1 M=1 C=1 Q=14 P=1 S=1 R=1
+- factors: N=1 M=1 C=1 Q=1 P=1 S=1 R=1
   permutation: NMCPQSR
   target: RegisterFile
   type: temporal

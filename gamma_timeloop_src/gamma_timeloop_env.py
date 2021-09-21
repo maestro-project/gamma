@@ -8,6 +8,8 @@ from timeloop_env import TimeloopEnv
 from multiprocessing.pool import Pool
 from multiprocessing import cpu_count
 import shutil
+from functools import cmp_to_key, partial
+
 
 class GammaTimeloopEnv(object):
     def __init__(self, num_pes=256, l2_size=10800, l1_size=512, fitness_obj=['latency'], report_dir='./report', use_pool=True):
@@ -103,11 +105,36 @@ class GammaTimeloopEnv(object):
         return indv
 
     def init_pops(self, num_pops):
+        # return [self.init_indv() for _ in range(num_pops)], np.random.randint(0, 100, (num_pops, len(self.fitness_obj)))
         return [self.init_indv() for _ in range(num_pops)], np.ones((num_pops, len(self.fitness_obj))) * np.NINF
 
-    def select_parents(self, pops, fitness, num_parents, num_elites, num_pops):
+    def sort_rank_func(self, cand1, cand2, delta=1e-2):
+        def helper(item1, item2, is_last=False):
+            margin = abs((item1+item2) /2 * delta) if not is_last else 0
+            if margin == float('Inf'):
+                margin = 0
+            if item1 >= item2 + margin:
+                return 1
+            elif item1 +margin < item2:
+                return -1
+            else:
+                return 0
+        fitness_len = len(cand1) - 1
+        for i in range(fitness_len):
+            ret = helper(cand1[i], cand2[i], is_last=(i==fitness_len-1))
+            if ret != 0:
+                return ret
+
+
+
+    def select_parents(self, pops, fitness, num_parents, num_elites, num_pops, use_soft_margin=True):
+
         fitness_list = [tuple(list(ar)+[-i]) for i, ar in enumerate(fitness)]
-        fitness_list = sorted(fitness_list, reverse=True)
+        if not use_soft_margin:
+            sort_rank_func = partial(self.sort_rank_func, delta=0)
+        else:
+            sort_rank_func = self.sort_rank_func
+        fitness_list = sorted(fitness_list, key=cmp_to_key(sort_rank_func), reverse=True)
         idx = [int(-ar[-1]) for ar in fitness_list]
         new_pop = [pops[i] for i in idx][:num_pops]
         new_fitness = fitness[idx][:num_pops]
@@ -154,16 +181,20 @@ class GammaTimeloopEnv(object):
         for g in range(num_gens):
             if g == 0:
                 pops, fitness, parents, elites, elites_fitness = self.select_parents(pops, fitness, num_parents, num_elites, num_pops)
-            pops = self.mutate_par(pops, parents)
-            pops = self.mutate_order(pops, parents)
-            pops = self.mutate_tiles(pops, parents)
+            if g == 0:
+                alpha = 1
+            else:
+                alpha = 0.5
+            pops = self.mutate_par(pops, parents, alpha=alpha)
+            pops = self.mutate_order(pops, parents, alpha=alpha)
+            pops = self.mutate_tiles(pops, parents, alpha=alpha)
 
             fitness = self.evaluate(pops, fitness, pool)
             pops = elites + pops
             fitness = np.concatenate((elites_fitness, fitness), axis=0)
 
-
             pops, fitness, parents, elites, elites_fitness = self.select_parents(pops, fitness, num_parents, num_elites, num_pops)
+
 
             best_idx = 0
             best_sol = pops[best_idx]

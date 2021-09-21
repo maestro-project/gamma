@@ -1,9 +1,9 @@
 ART:
   version: 0.3
   tables:
-  - name: System.Chip.PEarrray.RegisterFile[0..64]
+  - name: System.Chip.PEarrray.RegisterFile[0..256]
     area: 1
-  - name: System.Chip.PEarrray.MACC[0..64]
+  - name: System.Chip.PEarrray.MACC[0..256]
     area: 1
   - name: System.Chip.GlobalBuffer
     area: 1
