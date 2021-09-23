@@ -27,5 +27,5 @@ run_exp () {
 #run_exp outdir num_pe l1_size l2_size model layer_idx
 run_exp exp_vgg16-1 256 100 8192 vgg16 1
 run_exp exp_vgg16-2 256 100 8192 vgg16 2
-run_exp exp_vgg16-4 256 100 8192 vgg16 3
+run_exp exp_vgg16-3 256 100 8192 vgg16 3
 run_exp exp_vgg16-5 256 100 8192 vgg16 5
