@@ -14,7 +14,7 @@ and the other conventional optimization methods supported by [nevergrad](https:/
   
 
 ### Gamma-Timeloop
-* We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](./gamma_timeloop_src).
+* We add [Timeloop](https://github.com/NVlabs/timeloop) support, named [Gamma-Timeloop](https://github.com/maestro-project/gamma-timeloop).
   It enables using GAMMA algorithm to search through the design space of Timeloop, a DNN cost model from NVIDIA.
 
 ---
