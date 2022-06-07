@@ -1,5 +1,5 @@
 import os, sys
-
+commit_id = 'e1d8efd8e5469cf865a9db60007a70e3f0cb8778'
 dst_path = "../cost_model/maestro"
 maestro_dir = "../../maestro"
 working_path = os.getcwd()
@@ -9,6 +9,7 @@ maestro =  os.path.abspath(maestro)
 if os.path.exists(maestro_dir) is False:
     os.system("git clone https://github.com/maestro-project/maestro.git {}".format(maestro_dir))
     os.chdir(maestro_dir)
+    os.system(f"git checkout e1d8efd8e5469cf865a9db60007a70e3f0cb8778")
     try:
         os.system("scons")
     except:
