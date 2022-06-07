@@ -1,7 +1,7 @@
 import os, sys
 commit_id = 'e1d8efd8e5469cf865a9db60007a70e3f0cb8778'
 dst_path = "cost_model/maestro"
-maestro_dir = "../temp/maestro"
+maestro_dir = "../maestro"
 working_path = os.getcwd()
 dst_path = os.path.join(working_path, dst_path)
 maestro = os.path.join(maestro_dir, "maestro")
