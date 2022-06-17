@@ -48,7 +48,7 @@ ulimit -n 4096
 * Map space exploration for partially flexible accelerator (in a constrained search space): Related reading - [Formalism of Accelerator Flexibility](https://dl.acm.org/doi/10.1145/3530907).
 * PE(HW)-Mapping Co-exploration: Related reading - [DiGamma](https://arxiv.org/pdf/2201.11220.pdf).
 
-More details can be found [here](./data/mapping_cstr/)
+More details can be found [here](./src/GAMMA/)
 
 ### Resources
 * Tutorial of GAMMA, in IEEE/ACM International Symposium on Microarchitecture (MICRO), 2020 [[video](https://www.youtube.com/watch?v=gfBFRBbcA10)]
