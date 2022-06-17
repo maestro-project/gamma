@@ -24,7 +24,13 @@ In the basic usage, Gamma will create a map space assuming full flexibility in t
 
 We can also specify mapping constraint if the underlying hardware is not fully flexible. Gamma will create a constraint map-space based on the given mapping constraint.
 ### Advanced Parameter ###
-* mapping_cstr: The constraint on the map-space (``data/constrain/mapping_cstr``). 
+* mapping_cstr: The constraint on the map-space.
+  * Make a customized mapping constraint files and put it in this path [``data/mapping_cstr``](../../data/mapping_cstr).   
+
+For example, let's apply an mapping constraint called ``dla_map`` (located at [``data/mapping_cstr/dla_map.py``](../../data/mapping_cstr/dla_map.py))
+```
+python main.ppy --mapping_cstr dla_map
+```
 
 We give detailed explanations and provide examples in [``data/mapping_cstr``](../../data/mapping_cstr).
 
