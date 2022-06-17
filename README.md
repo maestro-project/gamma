@@ -58,6 +58,10 @@ More details can be found [here](./src/GAMMA/)
 * Sheng-Chun (Felix) Kao
 * Tushar Krishna
 
+### Pull Request ###
+* We welcome pull request.
+* If you have any question, please contact Felix <chuchu40507@gmail.com>.
+
 ### Citation ###
 ```
 @inproceedings{gamma,
