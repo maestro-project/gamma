@@ -15,7 +15,7 @@ if __name__ == "__main__":
     parser.add_argument('--offchipBW', type=int, default=-1, help='Off-chip BW')
     parser.add_argument('--hwconfig', type=str, default=None, help='HW configuration file')
     parser.add_argument('--model', type=str, default="resnet18", help='Model to run')
-    parser.add_argument('--num_layer', type=int, default=2, help='Number of layers to optimize')
+    parser.add_argument('--num_layer', type=int, default=0, help='Number of layers to optimize')
     parser.add_argument('--singlelayer', type=int, default=0, help='The layer index to optimize')
     parser.add_argument('--slevel_min', type=int, default=2, help='Minimum number of parallelization level')
     parser.add_argument('--slevel_max', type=int, default=2, help='Maximum number of parallelization level')

@@ -64,6 +64,7 @@ def train_model(model_defs, input_arg, map_cstr=None, chkpt_file='./chkpt'):
                       l2_size=opt.l2_size, NocBW=opt.NocBW, offchipBW=opt.offchipBW, slevel_min=opt.slevel_min, slevel_max=opt.slevel_max,
                       fixedCluster=opt.fixedCluster, log_level=opt.log_level, map_cstr=map_cstr)
     constraints = {"area":opt.area_budget* 1e6}
+    chkpt_list = []
     for dimension in model_defs:
         env.reset_dimension(fitness=fitness, constraints=constraints, dimension=dimension)
         env.reset_hw_parm(num_pe=opt.num_pe, l1_size=opt.l1_size, l2_size=opt.l2_size, pe_limit=opt.pe_limit,area_pebuf_only=False, external_area_model=True)
@@ -87,12 +88,18 @@ def train_model(model_defs, input_arg, map_cstr=None, chkpt_file='./chkpt'):
             "L1_size": best_l1_size,
             "L2_size": best_l2_size
         }
-        columns = ["runtime", "area", "pe_area_ratio", "PE", "L1_size", "L2_size", "PE_area", "L1_area", "L2_area","best_sol"]
-        np_array = np.array([chkpt[t] for t in columns[:-1]] + [f'{chkpt["best_sol"]}']).reshape(1, -1)
-        df = pd.DataFrame(np_array, columns=columns)
-        df.to_csv(chkpt_file[:-4]+".csv")
-        with open(chkpt_file, "wb") as fd:
-            pickle.dump(chkpt, fd)
+        chkpt_list.append(chkpt)
+    columns = ["runtime", "area", "pe_area_ratio", "PE", "L1_size", "L2_size", "PE_area", "L1_area", "L2_area","best_sol"]
+    np_array = None
+    for chkpt in chkpt_list:
+        if np_array is None:
+            np_array = np.array([chkpt[t] for t in columns[:-1]] + [f'{chkpt["best_sol"]}']).reshape(1, -1)
+        else:
+            np_array = np.vstack([np_array, np.array([chkpt[t] for t in columns[:-1]] + [f'{chkpt["best_sol"]}']).reshape(1, -1)])
+    df = pd.DataFrame(np_array, columns=columns)
+    df.to_csv(chkpt_file[:-4]+".csv")
+    with open(chkpt_file, "wb") as fd:
+        pickle.dump(chkpt_list, fd)
 
 def get_cstr_name(mapping_cstr):
     if mapping_cstr:
