@@ -13,7 +13,7 @@ In the basic usage, Gamma will create a map space assuming full flexibility in t
 * l2_size: L2 size (Number of elements)
 * slevel_min: The minimum number of parallelism
 * slevel_max: The maximum number of parallelism. The number of parallelism will be in the range [slevel_min, slevel_max]
-* hwconfig: Read in HW configuration from file. An example of hwconfig can be found [here](data/HWconfigs/hw_config.m). An example of using it can be found [here](../run_gamma_with_hwconfig.sh)
+* hwconfig: Read in HW configuration from file. An example of hwconfig can be found [here](../../data/HWconfigs/hw_config.m). An example of using it can be found [here](../../run_gamma_with_hwconfig.sh)
 * epochs: Number of generation for the optimization
 * outdir: The output result directory
 
