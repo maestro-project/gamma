@@ -91,6 +91,7 @@ def train_model(model_defs, input_arg, map_cstr=None, chkpt_file='./chkpt'):
         np_array = np.array([chkpt[t] for t in columns[:-1]] + [f'{chkpt["best_sol"]}']).reshape(1, -1)
         df = pd.DataFrame(np_array, columns=columns)
         df.to_csv(chkpt_file[:-4]+".csv")
+        env.write_maestro(best_sol, m_file = opt.model, layer_id = opt.singlelayer, folder_path=os.path.dirname(chkpt_file))
         with open(chkpt_file, "wb") as fd:
             pickle.dump(chkpt, fd)
 
