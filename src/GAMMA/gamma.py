@@ -842,10 +842,16 @@ class GAMMA(object):
             print("Not supported layer.")
         return dimensions
 
-    def write_maestro(self, indv, layer_id=0, m_file=None):
+    def write_maestro(self, indv, layer_id=0, m_file = None, folder_path = None):
         dimensions = [self.dimension]
-        with open("{}.m".format(m_file), "w") as fo:
-            fo.write("Network {} {{\n".format(layer_id))
+        if layer_id != 0:
+            m_file_with_layer = "{}_{}".format(m_file, layer_id)
+        else:
+            m_file_with_layer = m_file
+
+        file_path = os.path.join(folder_path or ".", "{}.m".format(m_file_with_layer))
+        with open(file_path, "w") as fo:
+            fo.write("Network {} {{\n".format(m_file))
             for i in range(len(dimensions)):
                 dimension = dimensions[i]
                 m_type = m_type_dicts[int(dimension[-1])]
